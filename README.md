@@ -36,26 +36,25 @@ use quarkblockchain\ERC20;
      */
     public function transfer($num, $address)
     {
-        //xxxx为服务器运行的夸克区块链节点端口号，如果不是调用的当前服务器的节点，请填写所调用的服务器IP地址
+         //xxxx为服务器运行的夸克区块链节点端口号，如果不是调用的当前服务器的节点，请填写所调用的服务器IP地址
         $url = "http://127.0.0.1:xxxx";
         $url_arr = parse_url($url);
         //实例化节点对象
         $qk_node = new QkNodeRPC($url_arr['host'], $url_arr['port']);
-        //托管地址（发送方）
-        $payer = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
-        //转账
-        $transaction = $qk_node->personal()->transaction($payer, $address)
-            ->amount($num)
-            ->data("");
-        //XXXXXXXXX为发送方钱包密码
-        $txId = $transaction->send("XXXXXXXXXXXX");
-
-        if ($txId && strlen($txId) == 66) {
-            //返回交易hash
-            return $txId;
-        } else {
-            return false;
-        }
+        //发送方
+        $from = "xxxxxxxxxxxxxxxxxxxx";
+        //接收方
+        $to = "xxxxxxxxxxxxxxxxxxxx";
+        //转账数量
+        $num = 1;
+        try{
+            //转账    
+            $res = $qk_node->QKI()->sendTransaction($from,$to,$num);//返回字符串
+        }catch (\Exception $exception)
+         {
+  
+           //异常$exception
+         }  
     }
 ?>
 ```
